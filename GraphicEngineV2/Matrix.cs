@@ -109,8 +109,10 @@ namespace GraphicEngineV2
         {
             if (matrix.Cols() != matrix.Rows() || matrix.Determinant() == 0)
                 MatrixException.NotSquareException();
+
             int n = matrix.Rows();
-            Matrix identity = Matrix.Identity(n);
+            Matrix identity = Identity(n);
+
             for (int j = 0; j < n; j++)
             {
                 for (int i = 0; i < n; i++)
@@ -145,7 +147,7 @@ namespace GraphicEngineV2
             row = Basis[0].data.Length;
             for (int i = 1; i < col; i++)
                 if (row != Basis[i].VectorSize())
-                    throw new EngineException("Basis size not equal vector size in Basis");
+                    VectorSpaceException.NotBasis();
 
             if (row != col)
                 MatrixException.NotSquareException();
@@ -159,7 +161,7 @@ namespace GraphicEngineV2
             return gram;
 
         }
-        public static Matrix MatrixMultiply(Matrix matrix1, Matrix matrix2)
+        public static Matrix MatrixMultiplication(Matrix matrix1, Matrix matrix2)
         {
             if (matrix1.Cols() != matrix2.Rows())
                 MatrixException.InvalidSizes();
@@ -170,6 +172,7 @@ namespace GraphicEngineV2
                 for (int j = 0; j < matrix2.Cols(); j++)
                     for (int k = 0; k < matrix2.Rows(); k++)
                         result.data[i, j] += matrix1.data[i, k] * matrix2.data[k, j];
+
             return result;
         }
 
@@ -215,11 +218,11 @@ namespace GraphicEngineV2
         }
         public static Matrix operator *(float scalar, Matrix matrix)
         {
-            return matrix * scalar;
+            return MatrixScalarMuliplication(matrix, scalar);
         }
         public static Matrix operator *(Matrix matrix1, Matrix matrix2)
         {
-            return MatrixMultiply(matrix1, matrix2);
+            return MatrixMultiplication(matrix1, matrix2);
         }
 
         public static Matrix operator +(Matrix matrix1, Matrix matrix2)
@@ -252,10 +255,27 @@ namespace GraphicEngineV2
             angle = ConvertToRadian(angle);
             Matrix rotationMatrix = Identity(size);
             int n = (axesIndecies[1] + axesIndecies[0]) % 2 == 0 ? 1 : 0;
-            rotationMatrix.data[axesIndecies[0], axesIndecies[0]] = (float)Math.Cos(angle);
-            rotationMatrix.data[axesIndecies[1], axesIndecies[1]] = (float)Math.Cos(angle);
-            rotationMatrix.data[axesIndecies[1], axesIndecies[0]] = (float)(Math.Pow((-1), n) * Math.Sin(angle));
-            rotationMatrix.data[axesIndecies[0], axesIndecies[1]] = (float)(Math.Pow((-1), n+1) * Math.Sin(angle));
+
+            float cos = (float)Math.Cos(angle);
+            float sin = (float)Math.Sin(angle);
+
+            if (angle == ((float)Math.PI / 2) || angle == (3 * (float)Math.PI / 2))
+            {
+                cos = 0.0f;
+                sin = (float)Math.Sin(angle);
+            }
+            if (angle == (float)Math.PI || angle == 0.0f)
+            {
+                cos = (float)Math.Cos(angle);
+                sin = 0.0f;
+            }
+          
+            rotationMatrix.data[axesIndecies[0], axesIndecies[0]] = cos;
+            rotationMatrix.data[axesIndecies[1], axesIndecies[1]] = cos;
+
+            rotationMatrix.data[axesIndecies[1], axesIndecies[0]] = (float)(Math.Pow((-1), n) * sin);
+            rotationMatrix.data[axesIndecies[0], axesIndecies[1]] = (float)(Math.Pow((-1), n+1) * sin);
+
             return rotationMatrix;
         }
         private static Matrix Rx(float angle)

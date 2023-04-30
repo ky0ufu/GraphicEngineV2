@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Engine;
+
 
 namespace GraphicEngineV2
 {
@@ -10,18 +13,19 @@ namespace GraphicEngineV2
     {
         static void Main(string[] args)
         {
-            float[,] arr =  { {1, 0, 0 },
-                              {0, 1, 0 },
-                              {0, 0, 1 } };
-            float[,] arr1 = { {1, 2, 3 },
-                              {4, 5, 6 }
-                               };
-            Matrix A = new Matrix(arr);
-            Matrix B = new Matrix(arr1);
-            (A * B).Print();
-            
-        }
+            IEnumerable<long> GaloisLFSR(int seed)
+            {
+                long lfsr = seed;
+                do yield return (lfsr = (lfsr >> 1) ^ (-(lfsr & 1u) & 0xD0000001u));
+                while (lfsr != seed);
+            }
 
+            Entity e1 = new Entity();
+            Console.WriteLine(e1.Id);
+            e1.SetProperty("cringe", 2);
+            Console.WriteLine(e1["properties"]);
+        }
         
+   
     }
 }
