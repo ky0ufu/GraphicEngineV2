@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Data>
+	<MultiplyScalarData>
+		<size>3 3</size>
+		<matrix1>1 2 3 4 5 6 7 8 9</matrix1>
+		<scalar>1</scalar>
+		<result>1 2 3 4 5 6 7 8 9</result>
+	</MultiplyScalarData>
+
+</Data>

@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Data>
+	<Vec>
+		<size>3 1</size>
+		<vector1>1 2 3</vector1>
+		<vector2>1 2 3</vector2>
+		<result>14</result>
+	</Vec>
+	<Vec>
+		<size>5 1</size>
+		<vector1>1 1 1 1 1</vector1>
+		<vector2>2 2 2 2 2</vector2>
+		<result>10</result>
+	</Vec>
+	<Vec>
+		<size>5 1</size>
+		<vector1>-2 1 -2 1 1</vector1>
+		<vector2>-1 2 1 2 2</vector2>
+		<result>6</result>
+	</Vec>
+
+</Data>

@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Data>
+<DeterminantData>
+	<size>3 3</size>
+	<matrix>1 2 3 7 5 6 7 8 9</matrix>
+	<result>18</result>
+</DeterminantData>
+</Data>

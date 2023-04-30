@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Data>
+	<AddData>
+		<size>3 3</size>
+		<matrix1>1 2 3 4 5 6 7 8 9</matrix1>
+		<matrix2>1 2 3 4 5 6 7 8 9 </matrix2>
+		<result>2 4 6 8 10 12 14 16 18</result>
+	</AddData>
+	<AddData>
+		<size>3 3</size>
+		<matrix1>0 0 0 0 0 0 0 0 0</matrix1>
+		<matrix2>0 0 0 0 0 0 0 0 0</matrix2>
+		<result>0 0 0 0 0 0 0 0 0</result>
+	</AddData>
+	<AddData>
+		<size>5 5</size>
+		<matrix1>0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0</matrix1>
+		<matrix2>-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1</matrix2>
+		<result>-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1</result>
+	</AddData>
+</Data>

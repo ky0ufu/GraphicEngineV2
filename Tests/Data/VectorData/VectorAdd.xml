@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Data>
+	<AddVec>
+		<size>3 1</size>
+		<vector1>1 2 3</vector1>
+		<vector2>1 2 3</vector2>
+		<result>2 4 6</result>		
+	</AddVec>
+	<AddVec>
+		<size>5 1</size>
+		<vector1>1 2 3 -3 -5 -6</vector1>
+		<vector2>1 2 3 1 8 3</vector2>
+		<result>2 4 6 -2 3 -3</result>
+	</AddVec>
+	
+</Data>
