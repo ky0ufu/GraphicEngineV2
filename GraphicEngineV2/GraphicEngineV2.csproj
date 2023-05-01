@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CoordinateSystem.cs" />
+    <Compile Include="Engine\EntitiesList.cs" />
     <Compile Include="Engine\Entity.cs" />
     <Compile Include="Engine\Identifier.cs" />
     <Compile Include="Engine\Ray.cs" />

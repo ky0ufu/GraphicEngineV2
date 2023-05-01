@@ -9,13 +9,19 @@ namespace Engine
 {
     public class Ray
     {
-        CoordinateSystem CS { get; set; }
-        Point InitialPoint { get; set; }
-        Vector Direction { get; set; }
+        public CoordinateSystem CoordSystem { get; set; }
+        public Point InitialPoint { get; set; }
+        public Vector Direction { get; set; }
 
         public Ray(CoordinateSystem cS, Point initialPoint, Vector direction)
         {
-            CS = cS;
+            CoordSystem = cS;
+            InitialPoint = initialPoint;
+            Direction = direction;
+        }
+
+        protected Ray(Point initialPoint, Vector direction)
+        {
             InitialPoint = initialPoint;
             Direction = direction;
         }

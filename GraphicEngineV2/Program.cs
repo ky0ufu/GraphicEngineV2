@@ -20,10 +20,10 @@ namespace GraphicEngineV2
                 while (lfsr != seed);
             }
 
-            Entity e1 = new Entity();
-            Console.WriteLine(e1.Id);
-            e1.SetProperty("cringe", 2);
-            Console.WriteLine(e1["properties"]);
+            EntitiesList e1 = new EntitiesList();
+            Entity enot = new Entity();
+            e1.AppendEntity(enot);
+            Console.WriteLine(e1[enot.Id].Id);
         }
         
    

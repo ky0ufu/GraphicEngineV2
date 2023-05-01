@@ -12,16 +12,22 @@ namespace Engine
 {   
     public class Entity
     {
-        public CoordinateSystem CS { get; set; }
-        public Identifier Id { get; }
+        public CoordinateSystem CoordSystem { get; set; }
+        public virtual Identifier Id { get; }
         public Dictionary<string, dynamic> properties = new Dictionary<string, dynamic>();
 
         public Entity(CoordinateSystem cS)
         {
-           CS = cS;
+           CoordSystem = cS;
             Id = new Identifier();
             properties.Add("properties", new HashSet<dynamic>());
         }
+        public Entity()
+        {
+            Id = new Identifier();
+            properties.Add("properties", new HashSet<dynamic>());
+        }
+
         public void SetProperty(string prop, dynamic value)
         {
             if (prop == "properties")
@@ -49,7 +55,7 @@ namespace Engine
             properties["properties"].Remove(prop);
         }
 
-        public float this[string prop]
+        public dynamic this[string prop]
         {
             get 
             {
