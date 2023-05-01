@@ -29,7 +29,7 @@ namespace GraphicEngineV2
         {
             vec1 = Vector.Transpose(Vector.ToNotTransposeVector(vec1));
             vec2 = Vector.ToNotTransposeVector(vec2);
-            return (Vector.VectorToMatrix(vec1) * Matrix.Gram(Basis) * Vector.VectorToMatrix(vec2)).data[0, 0];
+            return (Vector.ToMatrix(vec1) * Matrix.Gram(Basis) * Vector.ToMatrix(vec2)).data[0, 0];
         }
 
         public Vector VectorProduct(Vector vec1, Vector vec2)
@@ -50,7 +50,7 @@ namespace GraphicEngineV2
                 for (int j = 0; j < point.PointSize(); j++)
                     for (int i = 0; i < point.PointSize(); i++)
                     {
-                        vec.data[j, 0] += point.point[i] * Basis[j].data[i, 0];
+                        vec.Data[j, 0] += point.point[i] * Basis[j].Data[i, 0];
                     }
             }
             return vec;

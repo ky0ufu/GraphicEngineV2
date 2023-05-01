@@ -6,7 +6,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Engine;
 
-
 namespace GraphicEngineV2
 {
     public class Program
@@ -19,11 +18,11 @@ namespace GraphicEngineV2
                 do yield return (lfsr = (lfsr >> 1) ^ (-(lfsr & 1u) & 0xD0000001u));
                 while (lfsr != seed);
             }
-
-            EntitiesList e1 = new EntitiesList();
-            Entity enot = new Entity();
-            e1.AppendEntity(enot);
-            Console.WriteLine(e1[enot.Id].Id);
+            float[,] v = new float[3, 3] { { 1.51515f, 3.5f, 1.5f, }, { 1.5f, 3.5f, 1.5f, }, { 1.5f, 3.5f, 1.5f, } };
+            Matrix A = new Matrix(v);
+            Vector B = new Vector(3);
+            Vector C = new Vector(3);
+            (B + C).Print();
         }
         
    

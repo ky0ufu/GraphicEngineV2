@@ -6,35 +6,35 @@ using System.Threading.Tasks;
 
 namespace GraphicEngineV2
 {
-    public class Vector
+    public class Vector : Matrix
     {
-        public float[,] data { get; set; }
+        public new float[,] Data { get; set; }
         public float this[int index]
         {
             get
             {
-                return IsTranspose ? data[0, index] : data[index, 0];
+                return IsTranspose ? Data[0, index] : Data[index, 0];
             }
             set
             {
                 if (IsTranspose)
-                    data[0, index] = value;
+                    Data[0, index] = value;
                 else
-                    data[index, 0] = value;
+                    Data[index, 0] = value;
             }
         }
         public bool IsTranspose { get; private set; }
 
-        public Vector(float[,] vector)
+        public Vector(float[,] vector) : base(vector)
         {
             if (vector == null || (vector.GetLength(1) != 1 && vector.GetLength(0) != 1))
                 VectorException.InitException();
 
             IsTranspose = (vector.GetLength(0) == 1);
 
-            data = vector;
+            Data = vector;
         }
-        public Vector(int n)
+        public Vector(int n) : base(n)
         {
             if (n <= 0)
                 VectorException.InitException();
@@ -44,19 +44,19 @@ namespace GraphicEngineV2
             for (int i = 0; i < n; i++)
                 result[i, 0] = 0.0f;
 
-            data = result;
+            Data = result;
             IsTranspose = false;
         }
 
         public int VectorSize()
         {
-            return IsTranspose ? data.GetLength(1) : data.GetLength(0);
+            return IsTranspose ? Data.GetLength(1) : Data.GetLength(0);
         }
 
         public static Vector Transpose(Vector vec)
         {
             vec.IsTranspose = !vec.IsTranspose;
-            return MatrixToVector((VectorToMatrix(vec).Transpose()));
+            return ToVector((ToMatrix(vec).Transpose()));
         }
 
         public static Vector ToNotTransposeVector(Vector vec)
@@ -108,68 +108,73 @@ namespace GraphicEngineV2
             return (float)Math.Sqrt(ScalarProduct(this, this));
         }
 
-        public static Matrix VectorToMatrix(Vector vector)
+        public static Matrix ToMatrix(Vector vector)
         {
-            return new Matrix(vector.data);
+            return new Matrix(vector.Data);
         }
-        public static Vector MatrixToVector(Matrix matrix)
+        public static Vector ToVector(Matrix matrix)
         {
             return new Vector(matrix.data);
         }
-        public static Vector VectorAdd(Vector vec1, Vector vec2)
+        public static Vector Add(Vector vec1, Vector vec2)
         {
             if (vec1.VectorSize() != vec2.VectorSize())
                 VectorException.DiffirentSizes();
-
             if (vec1.IsTranspose != vec2.IsTranspose)
                 VectorException.FormException();
 
-            bool resultTranspose = vec1.IsTranspose;
-            vec1 = ToNotTransposeVector(vec1);
-            vec2 = ToNotTransposeVector(vec2);
+            return ToVector(ToMatrix(vec1) + ToMatrix(vec2));
+        }
 
-            Vector result = new Vector(new float[vec1.VectorSize(), 1]);
-            for (int i = 0; i < vec1.VectorSize(); i++)
-                result.data[i, 0] = vec1.data[i, 0] + vec2.data[i, 0];
 
-            return resultTranspose ? Transpose(result) : result;
+        public static Vector VectorMultiplication(Vector vec, float scalar)
+        {
+            return ToVector(MatrixScalarMuliplication(ToMatrix(vec), scalar));
+        }
+
+        public static Vector VectorMultiplication(float scalar, Vector vec)
+        {
+            return VectorMultiplication(vec, scalar);
+        }
+
+        public static Vector Sub(Vector vec1, Vector vec2)
+        {
+            return Add(vec1, VectorMultiplication(vec2, -1));
         }
         public static Vector operator +(Vector vec1, Vector vec2)
         {
-            return VectorAdd(vec1, vec2);
+            return Add(vec1, vec2);
         }
 
         public static Vector operator -(Vector vec)
         {
-            return vec * (-1);
+            return VectorMultiplication(vec, -1);
         }
 
         public static Vector operator -(Vector vec1, Vector vec2)
         {
-            return vec1 + (-vec2);
+            return Sub(vec1, vec2);
         }
 
         public static Vector operator *(Vector vec, float scalar)
         {
-            bool resultTranspose = vec.IsTranspose;
-            vec = ToNotTransposeVector(vec);
-            for (int i = 0; i < vec.VectorSize(); i++)
-            {
-                vec.data[i, 0] *= scalar;
-            }
-            return resultTranspose ? Transpose(vec) : vec;
+           return VectorMultiplication(vec, scalar);
         }
         public static Vector operator *(float scalar, Vector vec)
         {
-            return vec * scalar;
+            return VectorMultiplication(vec, scalar);
         }
         public static Matrix operator *(Vector vec1, Vector vec2)
         {
             if (vec1.IsTranspose == vec2.IsTranspose)
                 VectorException.FormException();
-            return VectorToMatrix(vec1) * VectorToMatrix(vec2);
+            return ToMatrix(vec1) * ToMatrix(vec2);
         }
 
+        public static Vector VectorByMatrix(Vector vec, Matrix mat)
+        {
+            return ToVector(MatrixMultiplication(ToMatrix(vec), mat));
+        }
         public static Vector operator ^(Vector vec1, Vector vec2)
         {
             return VectorProduct(vec1, vec2);
@@ -178,13 +183,13 @@ namespace GraphicEngineV2
         {
             return ScalarProduct(vec1, vec2);
         }
-        public void Print()
+        public override void Print()
         {
-            for (int i = 0; i <data.GetLength(0); i++)
+            for (int i = 0; i <Data.GetLength(0); i++)
             {
-                for (int j =0; j < data.GetLength(1); j++)
+                for (int j =0; j < Data.GetLength(1); j++)
                 {
-                    Console.Write(data[i, j]);
+                    Console.Write(Data[i, j]);
                     Console.Write(' ');
                 }
                 Console.WriteLine();

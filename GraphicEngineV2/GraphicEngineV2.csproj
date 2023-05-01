@@ -43,19 +43,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Algebra\CustDouble.cs" />
     <Compile Include="CoordinateSystem.cs" />
     <Compile Include="Engine\EntitiesList.cs" />
     <Compile Include="Engine\Entity.cs" />
+    <Compile Include="Engine\Game.cs" />
     <Compile Include="Engine\Identifier.cs" />
     <Compile Include="Engine\Ray.cs" />
     <Compile Include="Exeptions\EngineException.cs" />
     <Compile Include="Exeptions\MatrixException.cs" />
-    <Compile Include="Matrix.cs" />
-    <Compile Include="Point.cs" />
+    <Compile Include="Algebra\Matrix.cs" />
+    <Compile Include="Algebra\Point.cs" />
     <Compile Include="Exeptions\PointException.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Vector.cs" />
+    <Compile Include="Algebra\Vector.cs" />
     <Compile Include="Exeptions\VectorException.cs" />
     <Compile Include="VectorSpace.cs" />
     <Compile Include="Exeptions\VectorSpaceException.cs" />

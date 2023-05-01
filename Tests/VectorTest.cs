@@ -24,11 +24,11 @@ namespace Tests
             {
                 if (vec1.IsTranspose)
                 {
-                    if (vec1.data[0, i] - vec2.data[0, i] > 0.00001)
+                    if (vec1.Data[0, i] - vec2.Data[0, i] > 0.00001)
                         return false;
                 }
                 else
-                    if (vec1.data[i, 0] - vec2.data[i, 0] > 0.00001)
+                    if (vec1.Data[i, 0] - vec2.Data[i, 0] > 0.00001)
                     return false;
             }
             return true;

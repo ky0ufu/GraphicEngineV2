@@ -30,7 +30,7 @@ namespace GraphicEngineV2
             Point res = new Point(new float[ptr.PointSize()]);
             for (int i = 0; i < ptr.PointSize(); i++)
             {
-                res.point[i] = ptr.point[i] + vec.data[i, 0];
+                res.point[i] = ptr.point[i] + vec.Data[i, 0];
             }
             return res;
         }

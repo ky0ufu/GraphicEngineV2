@@ -144,7 +144,7 @@ namespace GraphicEngineV2
         {
             int row, col;
             col = Basis.Length;
-            row = Basis[0].data.Length;
+            row = Basis[0].Data.Length;
             for (int i = 1; i < col; i++)
                 if (row != Basis[i].VectorSize())
                     VectorSpaceException.NotBasis();
