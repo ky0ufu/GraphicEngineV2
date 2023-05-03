@@ -43,7 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Algebra\CustDouble.cs" />
+    <Compile Include="Algebra\RoundedFloat.cs" />
     <Compile Include="CoordinateSystem.cs" />
     <Compile Include="Engine\EntitiesList.cs" />
     <Compile Include="Engine\Entity.cs" />

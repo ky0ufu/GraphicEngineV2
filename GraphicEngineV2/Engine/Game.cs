@@ -85,7 +85,6 @@ namespace Engine
 
             public Object(Point position, Vector direction) : this(position)
             {
-                Position = position;
                 Direction = direction.Normalize();
             }
 

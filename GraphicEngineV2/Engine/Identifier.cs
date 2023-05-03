@@ -9,7 +9,7 @@ namespace Engine
 {
     public class Identifier
     {
-        static public HashSet<string> identifiers = new HashSet<string>();
+        static private HashSet<string> identifiers = new HashSet<string>();
         public string Value { get; }
         public Identifier()
         {

@@ -23,6 +23,3 @@ Methods in these classes returns EngineException with some text.
 '%' - ScalarProduct
 Matrix[i,j] - equal Matrix.matrix[i,j]
 Vector[i] - equal Vector.vector[0,i] or Vector.vector[i,0]
-
-Patch 0.0.4
-Changed

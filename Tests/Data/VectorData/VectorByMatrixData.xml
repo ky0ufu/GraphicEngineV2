@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Data>
+	<Vec>
+		<size1>3 1</size1>
+		<vector1>1 2 3</vector1>
+		
+		<size2>3 3</size2>
+		<mat1>1 0 0 0 1 0 0 0 1</mat1>		
+		
+		<result>1 2 3</result>
+	</Vec>
+</Data>

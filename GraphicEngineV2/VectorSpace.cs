@@ -29,7 +29,7 @@ namespace GraphicEngineV2
         {
             vec1 = Vector.Transpose(Vector.ToNotTransposeVector(vec1));
             vec2 = Vector.ToNotTransposeVector(vec2);
-            return (Vector.ToMatrix(vec1) * Matrix.Gram(Basis) * Vector.ToMatrix(vec2)).data[0, 0];
+            return (Vector.ToMatrix(vec1) * Matrix.Gram(Basis) * Vector.ToMatrix(vec2)).Data[0, 0];
         }
 
         public Vector VectorProduct(Vector vec1, Vector vec2)

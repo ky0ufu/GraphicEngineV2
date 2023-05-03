@@ -72,9 +72,11 @@
     <Content Include="Data\MatrixData\DataScalarMultiply.xml" />
     <Content Include="Data\MatrixData\DataTranspose.xml" />
     <Content Include="Data\VectorData\MinusData.xml" />
+    <Content Include="Data\VectorData\NormalizeData.xml" />
     <Content Include="Data\VectorData\ScalarMultiplyData.xml" />
     <Content Include="Data\VectorData\ScalarProductData.xml" />
     <Content Include="Data\VectorData\VectorAdd.xml" />
+    <Content Include="Data\VectorData\VectorByMatrixData.xml" />
     <Content Include="Data\VectorData\VectorProductData.xml" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />

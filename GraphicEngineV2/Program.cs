@@ -12,17 +12,15 @@ namespace GraphicEngineV2
     {
         static void Main(string[] args)
         {
-            IEnumerable<long> GaloisLFSR(int seed)
+            IEnumerable<long> UnickGenerator(int seed)
             {
-                long lfsr = seed;
-                do yield return (lfsr = (lfsr >> 1) ^ (-(lfsr & 1u) & 0xD0000001u));
-                while (lfsr != seed);
+                long value = seed;
+                do yield return (value = (value >> 1) ^ (-(value & 1u) & 0xD0000001u));
+                while (value != seed);
             }
-            float[,] v = new float[3, 3] { { 1.51515f, 3.5f, 1.5f, }, { 1.5f, 3.5f, 1.5f, }, { 1.5f, 3.5f, 1.5f, } };
-            Matrix A = new Matrix(v);
+            float[,] v = { { 1 }, { 2 }, { 3 } };
+            Vector A = new Vector(v);
             Vector B = new Vector(3);
-            Vector C = new Vector(3);
-            (B + C).Print();
         }
         
    

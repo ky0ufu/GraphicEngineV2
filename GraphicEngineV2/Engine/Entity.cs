@@ -22,7 +22,7 @@ namespace Engine
             Id = new Identifier();
             properties.Add("properties", new HashSet<dynamic>());
         }
-        public Entity()
+        protected Entity()
         {
             Id = new Identifier();
             properties.Add("properties", new HashSet<dynamic>());

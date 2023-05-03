@@ -8,7 +8,7 @@ namespace GraphicEngineV2
 {
     public class Vector : Matrix
     {
-        public new float[,] Data { get; set; }
+        public override float[,] Data { get; set; }
         public float this[int index]
         {
             get
@@ -50,7 +50,7 @@ namespace GraphicEngineV2
 
         public int VectorSize()
         {
-            return IsTranspose ? Data.GetLength(1) : Data.GetLength(0);
+            return Data.GetLength(0) + Data.GetLength(1) - 1;
         }
 
         public static Vector Transpose(Vector vec)
@@ -114,7 +114,7 @@ namespace GraphicEngineV2
         }
         public static Vector ToVector(Matrix matrix)
         {
-            return new Vector(matrix.data);
+            return new Vector(matrix.Data);
         }
         public static Vector Add(Vector vec1, Vector vec2)
         {
@@ -173,7 +173,15 @@ namespace GraphicEngineV2
 
         public static Vector VectorByMatrix(Vector vec, Matrix mat)
         {
-            return ToVector(MatrixMultiplication(ToMatrix(vec), mat));
+            if (vec.IsTranspose)
+                VectorException.FormException();
+
+            return ToVector(MatrixMultiplication(mat,ToMatrix(vec)));
+        }
+
+        public static Vector operator * (Matrix mat, Vector vec)
+        {
+            return VectorByMatrix(vec, mat);
         }
         public static Vector operator ^(Vector vec1, Vector vec2)
         {
@@ -194,6 +202,34 @@ namespace GraphicEngineV2
                 }
                 Console.WriteLine();
             }
+        }
+
+        public static bool operator ==(Vector vec1, Vector vec2)
+        {
+            return AreEqual(vec1, vec2);
+        }
+
+        public static bool operator !=(Vector vec1, Vector vec2)
+        {
+            return !AreEqual(vec1, vec2);
+        }
+
+        public static bool AreEqual(Vector vec1, Vector vec2)
+        {
+            if (vec1.IsTranspose != vec2.IsTranspose)
+                return false;
+
+            if (vec1.VectorSize() != vec2.VectorSize())
+                return false;
+
+            for (int i = 0; i < vec1.VectorSize(); i++)
+            {
+                
+                if (Math.Abs(vec1[i] - vec2[i]) > 0.00001)              
+                    return false;
+
+            }
+            return true;
         }
 
     }

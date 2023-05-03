@@ -3,6 +3,8 @@ using System;
 using GraphicEngineV2;
 using System.Data;
 using System.Globalization;
+using System.Runtime.CompilerServices;
+using System.Runtime.Remoting.Messaging;
 
 namespace Tests
 {
@@ -13,15 +15,7 @@ namespace Tests
 
         public bool AreEqual(Matrix mat1, Matrix mat2)
         {
-            if (!AreEqualSizes(mat1, mat2))
-                return false;
-            for (int i = 0; i < mat1.Rows(); i++)
-                for (int j = 0; j < mat2.Cols(); j++)
-                {
-                    if (mat1.data[i, j] - mat2.data[i, j] > 0.00001)
-                        return false;
-                }
-            return true;
+           return mat1 == mat2;
         }
         public bool AreEqual(float a, float b)
         {
@@ -31,7 +25,7 @@ namespace Tests
         {
             return (mat1.Rows() == mat2.Rows() && mat1.Cols() == mat2.Cols());
         }
-        public float[,] GetMatrixFromString(string matrix, int rows, int cols)
+        public static float[,] GetMatrixFromString(string matrix, int rows, int cols)
         {
             string[] matrixValues = matrix.Split(' ');
             float[,] res = new float[rows, cols];
@@ -172,6 +166,26 @@ namespace Tests
             Assert.IsTrue(AreEqual(A * scalar, res));
         }
 
+        [DataSource("Microsoft.VisualStudio.TestTools.DataSource.XML", @"D:\vs\GraphicEngineV2\Tests\Data\MatrixData\RotationMatrixData.xml", "Vec", DataAccessMethod.Sequential)]
+        [TestMethod]
+        public void TestGetRotationMatrix()
+        {
+            string ax = Convert.ToString(TestContext.DataRow["axis"]);
+            int firstAx = int.Parse(ax.Split()[0]);
+            int secondAx = int.Parse(ax.Split()[1]);
+            int[] axis = { firstAx, secondAx };
 
-    }
+            int size = int.Parse(Convert.ToString(TestContext.DataRow["size"]).Split()[0]);
+
+            float angle = float.Parse(Convert.ToString(TestContext.DataRow["angle"]), CultureInfo.InvariantCulture.NumberFormat);
+
+            Matrix A = Matrix.GetRotateMatrix(axis, angle, size);
+
+            string result = Convert.ToString(TestContext.DataRow["result"]);
+            Matrix res = new Matrix(GetMatrixFromString(result, size, size));
+
+            Assert.IsTrue(AreEqual(A, res));
+
+
+        }
 }

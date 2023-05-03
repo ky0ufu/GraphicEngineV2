@@ -10,34 +10,34 @@ namespace GraphicEngineV2
     {
         public int Rows()
         {
-            return data.GetLength(0);
+            return Data.GetLength(0);
         }
         public int Cols()
         {
-            return data.GetLength(1);
+            return Data.GetLength(1);
         }
-        public float[,] data { get; set; }
+        public virtual float[,] Data { get; set; }
 
         public float this[int index, int jndex]
         {
-            get { return data[index, jndex]; }
-            set => data[index, jndex] = value;
+            get { return Data[index, jndex]; }
+            set => Data[index, jndex] = value;
         }
 
         public Matrix(float[,] matrix)
         {
             if (matrix == null)
                 MatrixException.InitException();
-            this.data = matrix;
+            this.Data = matrix;
         }
         public Matrix(int n, int m)
         {
             if (n <= 0 || m <= 0)
                 MatrixException.InitException();
-            data = new float[n, m];
+            Data = new float[n, m];
             for (int i = 0; i < n; i++)
                 for (int j = 0; j < m; j++)
-                    data[i, j] = 0;
+                    Data[i, j] = 0;
         }
         public Matrix(int n) : this(n, n)
         {
@@ -50,7 +50,7 @@ namespace GraphicEngineV2
             for (int i = 0; i < newRows; i++)
                 for (int j = 0; j < newCols; j++)
                 {
-                    newMatrix.data[i, j] = data[j, i];
+                    newMatrix.Data[i, j] = Data[j, i];
                 }
             return newMatrix;
         }
@@ -76,7 +76,7 @@ namespace GraphicEngineV2
 
             int n = Rows();
             if (n == 1)
-                return data[0, 0];
+                return Data[0, 0];
             else
             {
                 float det = 0;
@@ -89,17 +89,17 @@ namespace GraphicEngineV2
                         {
                             if (j < k)
                             {
-                                submatrix[i - 1, j] = data[i, j];
+                                submatrix[i - 1, j] = Data[i, j];
                             }
                             else if (j > k)
                             {
-                                submatrix[i - 1, j - 1] = data[i, j];
+                                submatrix[i - 1, j - 1] = Data[i, j];
                             }
                         }
                     }
                     int sign = (k % 2 == 0) ? 1 : -1;
 
-                    det += sign * data[0, k] * new Matrix(submatrix).Determinant();
+                    det += sign * Data[0, k] * new Matrix(submatrix).Determinant();
                 }
                 return det;
             }
@@ -119,22 +119,22 @@ namespace GraphicEngineV2
                 {
                     if (i != j)
                     {
-                        float ratio = matrix.data[i, j] / matrix.data[j, j];
+                        float value = matrix.Data[i, j] / matrix.Data[j, j];
                         for (int k = 0; k < n; k++)
                         {
-                            matrix.data[i, k] -= ratio * matrix.data[j, k];
-                            identity.data[i, k] -= ratio * identity.data[j, k];
+                            matrix.Data[i, k] -= value * matrix.Data[j, k];
+                            identity.Data[i, k] -= value * identity.Data[j, k];
                         }
                     }
                 }
             }
             for (int i = 0; i < n; i++)
             {
-                float div = matrix.data[i, i];
+                float div = matrix.Data[i, i];
                 for (int j = 0; j < n; j++)
                 {
-                    matrix.data[i, j] /= div;
-                    identity.data[i, j] /= div;
+                    matrix.Data[i, j] /= div;
+                    identity.Data[i, j] /= div;
                 }
             }
             return identity;
@@ -156,7 +156,7 @@ namespace GraphicEngineV2
             for (int i = 0; i < row; i++)
             {
                 for (int j = 0; j < col; j++)
-                    gram.data[i, j] = Vector.ScalarProduct(Basis[i], Basis[j]);
+                    gram.Data[i, j] = Vector.ScalarProduct(Basis[i], Basis[j]);
             }
             return gram;
 
@@ -171,7 +171,7 @@ namespace GraphicEngineV2
             for (int i = 0; i < matrix1.Rows(); i++)
                 for (int j = 0; j < matrix2.Cols(); j++)
                     for (int k = 0; k < matrix2.Rows(); k++)
-                        result.data[i, j] += matrix1.data[i, k] * matrix2.data[k, j];
+                        result.Data[i, j] += matrix1.Data[i, k] * matrix2.Data[k, j];
 
             return result;
         }
@@ -181,7 +181,7 @@ namespace GraphicEngineV2
             for (int i = 0; i < matrix.Rows(); i++)
             {
                 for (int j = 0; j < matrix.Cols(); j++)
-                    matrix.data[i, j] *= scalar;
+                    matrix.Data[i, j] *= scalar;
             }
             return matrix;
         }
@@ -196,7 +196,7 @@ namespace GraphicEngineV2
 
             for (int i = 0; i < matrix1.Rows(); i++)
                 for (int j = 0; j < matrix2.Cols(); j++)
-                    result.data[i, j] = matrix1.data[i, j] + matrix2.data[i, j];
+                    result.Data[i, j] = matrix1.Data[i, j] + matrix2.Data[i, j];
             return result;
         }
 
@@ -240,7 +240,7 @@ namespace GraphicEngineV2
             {
                 for (int j = 0; j < Cols(); j++)
                 {
-                    Console.Write(data[i, j]);
+                    Console.Write(Data[i, j]);
                     Console.Write(' ');
                 }
                 Console.WriteLine();
@@ -262,19 +262,17 @@ namespace GraphicEngineV2
             if (angle == ((float)Math.PI / 2) || angle == (3 * (float)Math.PI / 2))
             {
                 cos = 0.0f;
-                sin = (float)Math.Sin(angle);
             }
             if (angle == (float)Math.PI || angle == 0.0f)
             {
-                cos = (float)Math.Cos(angle);
                 sin = 0.0f;
             }
           
-            rotationMatrix.data[axesIndecies[0], axesIndecies[0]] = cos;
-            rotationMatrix.data[axesIndecies[1], axesIndecies[1]] = cos;
+            rotationMatrix.Data[axesIndecies[0], axesIndecies[0]] = cos;
+            rotationMatrix.Data[axesIndecies[1], axesIndecies[1]] = cos;
 
-            rotationMatrix.data[axesIndecies[1], axesIndecies[0]] = (float)(Math.Pow((-1), n) * sin);
-            rotationMatrix.data[axesIndecies[0], axesIndecies[1]] = (float)(Math.Pow((-1), n+1) * sin);
+            rotationMatrix.Data[axesIndecies[1], axesIndecies[0]] = (float)(Math.Pow((-1), n) * sin);
+            rotationMatrix.Data[axesIndecies[0], axesIndecies[1]] = (float)(Math.Pow((-1), n+1) * sin);
 
             return rotationMatrix;
         }
@@ -300,6 +298,30 @@ namespace GraphicEngineV2
         {
             return Rx(alpha) * Ry(betta) * Rz(gamma);
 
+        }
+
+        public static bool operator ==(Matrix left, Matrix right) 
+        {
+            return AreEqual(left, right);
+        }
+
+        public static bool operator !=(Matrix left, Matrix right)
+        {
+            return !AreEqual(left, right);
+        }
+
+        public static bool AreEqual(Matrix mat1, Matrix mat2)
+        {
+            if (mat1.Rows() != mat2.Rows() || mat1.Cols() != mat2.Cols())
+                return false;
+
+            for (int i = 0; i < mat1.Rows(); i++)
+                for (int j = 0; j < mat2.Cols(); j++)
+                {
+                    if (Math.Abs(mat1.Data[i, j] - mat2.Data[i, j]) > 0.00001)
+                        return false;
+                }
+            return true;
         }
     }
 }
