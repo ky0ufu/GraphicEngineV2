@@ -16,7 +16,12 @@ namespace GraphicEngineV2
         {
             return Data.GetLength(1);
         }
-        public virtual float[,] Data { get; set; }
+        public virtual float[,] Data { get; protected set; }
+
+        public virtual void SetData(float[,] data)
+        {
+            Data = data;
+        }
 
         public float this[int index, int jndex]
         {
@@ -223,6 +228,14 @@ namespace GraphicEngineV2
         public static Matrix operator *(Matrix matrix1, Matrix matrix2)
         {
             return MatrixMultiplication(matrix1, matrix2);
+        }
+
+        public static Matrix operator /(Matrix mat, float scalar)
+        {
+            if (scalar == 0)
+                throw new DivideByZeroException();
+
+            return MatrixScalarMuliplication(mat, 1 / scalar);
         }
 
         public static Matrix operator +(Matrix matrix1, Matrix matrix2)

@@ -47,5 +47,10 @@ namespace Engine
                 return GetEntity(id);
             }
         }
+        public delegate void EntityDelegate(Entity entity);
+        public void exec(EntityDelegate operation, Entity entity)
+        {
+            operation(entity);
+        }
     }
 }

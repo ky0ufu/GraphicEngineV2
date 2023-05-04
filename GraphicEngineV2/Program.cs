@@ -21,6 +21,8 @@ namespace GraphicEngineV2
             float[,] v = { { 1 }, { 2 }, { 3 } };
             Vector A = new Vector(v);
             Vector B = new Vector(3);
+            B.SetData(v);
+            B.Print();
         }
         
    

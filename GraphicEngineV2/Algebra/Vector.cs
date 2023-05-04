@@ -8,7 +8,14 @@ namespace GraphicEngineV2
 {
     public class Vector : Matrix
     {
-        public override float[,] Data { get; set; }
+        public override float[,] Data { get; protected set; }
+
+        public override void SetData(float[,] data)
+        {
+            if (data.GetLength(0) != 1 && data.GetLength(1) != 1)
+                VectorException.FormException();
+            Data = data;
+        }
         public float this[int index]
         {
             get
@@ -27,7 +34,7 @@ namespace GraphicEngineV2
 
         public Vector(float[,] vector) : base(vector)
         {
-            if (vector == null || (vector.GetLength(1) != 1 && vector.GetLength(0) != 1))
+            if ((vector.GetLength(1) != 1 && vector.GetLength(0) != 1))
                 VectorException.InitException();
 
             IsTranspose = (vector.GetLength(0) == 1);
