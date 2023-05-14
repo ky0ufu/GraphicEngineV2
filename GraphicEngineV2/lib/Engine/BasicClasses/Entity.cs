@@ -1,10 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Diagnostics.Tracing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using GraphicEngineV2;
 
 
@@ -16,11 +11,9 @@ namespace Engine
         public virtual Identifier Id { get; }
         public Dictionary<string, dynamic> properties = new Dictionary<string, dynamic>();
 
-        public Entity(CoordinateSystem cS)
+        public Entity(CoordinateSystem cS) : this()
         {
-           CoordSystem = cS;
-            Id = new Identifier();
-            properties.Add("properties", new HashSet<dynamic>());
+            CoordSystem = cS;
         }
         protected Entity()
         {

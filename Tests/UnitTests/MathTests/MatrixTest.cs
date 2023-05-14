@@ -15,7 +15,7 @@ namespace Tests
 
         public bool AreEqual(Matrix mat1, Matrix mat2)
         {
-           return mat1 == mat2;
+            return mat1 == mat2;
         }
         public bool AreEqual(float a, float b)
         {
@@ -48,7 +48,7 @@ namespace Tests
             int col = int.Parse(size.Split()[1]);
 
             string matrix = Convert.ToString(TestContext.DataRow["matrix"]);
-            Matrix mat = (new Matrix(GetMatrixFromString(matrix, row, col))).Transpose();
+            Matrix mat = new Matrix(GetMatrixFromString(matrix, row, col)).Transpose();
 
             string result = Convert.ToString(TestContext.DataRow["result"]);
             Matrix res = new Matrix(GetMatrixFromString(result, row, col));
@@ -188,4 +188,5 @@ namespace Tests
 
 
         }
+    }
 }

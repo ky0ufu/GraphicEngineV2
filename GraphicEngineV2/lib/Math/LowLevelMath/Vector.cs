@@ -14,7 +14,8 @@ namespace GraphicEngineV2
         {
             if (data.GetLength(0) != 1 && data.GetLength(1) != 1)
                 VectorException.FormException();
-            Data = data;
+
+            Data = RoundedFloat.RoundedMatrix(data);
         }
         public float this[int index]
         {
@@ -24,10 +25,11 @@ namespace GraphicEngineV2
             }
             set
             {
+                float data = value;
                 if (IsTranspose)
-                    Data[0, index] = value;
+                    Data[0, index] = RoundedFloat.RoundFloat(data);
                 else
-                    Data[index, 0] = value;
+                    Data[index, 0] = RoundedFloat.RoundFloat(data);
             }
         }
         public bool IsTranspose { get; private set; }
@@ -39,7 +41,7 @@ namespace GraphicEngineV2
 
             IsTranspose = (vector.GetLength(0) == 1);
 
-            Data = vector;
+            Data = RoundedFloat.RoundedMatrix(vector);
         }
         public Vector(int n) : base(n)
         {
@@ -78,7 +80,7 @@ namespace GraphicEngineV2
 
             for (int i = 0; i < VectorSize(); i++)
             {
-                VecResult[i] = this[i] / VectorLength();
+                VecResult[i] = RoundedFloat.RoundFloat(this[i] / VectorLength());
             }
             return VecResult;
         }
@@ -86,33 +88,33 @@ namespace GraphicEngineV2
         {
             if (vector1.VectorSize() != vector2.VectorSize())
                 VectorException.DiffirentSizes();
-            vector1 = ToNotTransposeVector(vector1);
-            vector2 = ToNotTransposeVector(vector2);
             float result = 0;
             for (int i = 0; i < vector1.VectorSize(); i++)
             {
                 result += vector1[i] * vector2[i];
             }
-            return result;
+            return RoundedFloat.RoundFloat(result);
         }
 
         public static Vector VectorProduct(Vector vector1, Vector vector2)
         {
             if (vector1.VectorSize() != 3 || vector2.VectorSize() != 3)
                 VectorException.BadDimmensional();
-            Vector result = new Vector(new float[3, 1]);
-            vector1 = ToNotTransposeVector(vector1);
-            vector2 = ToNotTransposeVector(vector2);
 
-            result[0] = vector1[1] * vector2[2] - vector1[2] * vector2[1];
-            result[1] = -(vector1[0] * vector2[2] - vector1[2] * vector2[0]);
-            result[2] = vector1[0] * vector2[1] - vector1[1] * vector2[0];
+            if (vector1.IsTranspose != vector2.IsTranspose)
+                VectorException.FormException();
+
+            Vector result = new Vector(new float[3, 1]);
+
+            result[0] = RoundedFloat.RoundFloat(vector1[1] * vector2[2] - vector1[2] * vector2[1]);
+            result[1] = RoundedFloat.RoundFloat(-(vector1[0] * vector2[2] - vector1[2] * vector2[0]));
+            result[2] = RoundedFloat.RoundFloat(vector1[0] * vector2[1] - vector1[1] * vector2[0]);
             return result;
         }
 
         public float VectorLength()
         {
-            return (float)Math.Sqrt(ScalarProduct(this, this));
+            return RoundedFloat.RoundFloat((float)Math.Sqrt(ScalarProduct(this, this)));
         }
 
         public static Matrix ToMatrix(Vector vector)
@@ -223,16 +225,13 @@ namespace GraphicEngineV2
 
         public static bool AreEqual(Vector vec1, Vector vec2)
         {
-            if (vec1.IsTranspose != vec2.IsTranspose)
-                return false;
-
-            if (vec1.VectorSize() != vec2.VectorSize())
+            if (vec1.IsTranspose != vec2.IsTranspose || vec1.VectorSize() != vec2.VectorSize())
                 return false;
 
             for (int i = 0; i < vec1.VectorSize(); i++)
             {
                 
-                if (Math.Abs(vec1[i] - vec2[i]) > 0.00001)              
+                if (vec1[i] != vec2[i])              
                     return false;
 
             }

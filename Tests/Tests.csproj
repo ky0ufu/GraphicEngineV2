@@ -50,8 +50,11 @@
     <Reference Include="System.Data" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="VectorTest.cs" />
-    <Compile Include="MatrixTest.cs" />
+    <Compile Include="UnitTests\EngineTests\EntityTests.cs" />
+    <Compile Include="UnitTests\MathTests\PointTests.cs" />
+    <Compile Include="UnitTests\MathTests\VectorSpaceTests.cs" />
+    <Compile Include="UnitTests\MathTests\VectorTest.cs" />
+    <Compile Include="UnitTests\MathTests\MatrixTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -71,6 +74,7 @@
     <Content Include="Data\MatrixData\DataMinus.xml" />
     <Content Include="Data\MatrixData\DataScalarMultiply.xml" />
     <Content Include="Data\MatrixData\DataTranspose.xml" />
+    <Content Include="Data\PointData\AddData.xml" />
     <Content Include="Data\VectorData\MinusData.xml" />
     <Content Include="Data\VectorData\NormalizeData.xml" />
     <Content Include="Data\VectorData\ScalarMultiplyData.xml" />
@@ -78,6 +82,10 @@
     <Content Include="Data\VectorData\VectorAdd.xml" />
     <Content Include="Data\VectorData\VectorByMatrixData.xml" />
     <Content Include="Data\VectorData\VectorProductData.xml" />
+    <Content Include="Data\VectorSpaceData\ScalarProductData.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="UnitTests\GameTests\" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

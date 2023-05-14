@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GraphicEngineV2
 {
@@ -20,25 +16,31 @@ namespace GraphicEngineV2
 
         public virtual void SetData(float[,] data)
         {
-            Data = data;
+            Data = RoundedFloat.RoundedMatrix(data);
         }
 
         public float this[int index, int jndex]
         {
             get { return Data[index, jndex]; }
-            set => Data[index, jndex] = value;
+            set
+            {
+                float val = value;
+                Data[index, jndex] = RoundedFloat.RoundFloat(val);
+            }
         }
 
         public Matrix(float[,] matrix)
         {
             if (matrix == null)
                 MatrixException.InitException();
-            this.Data = matrix;
+
+            this.Data = RoundedFloat.RoundedMatrix(matrix);
         }
         public Matrix(int n, int m)
         {
             if (n <= 0 || m <= 0)
                 MatrixException.InitException();
+
             Data = new float[n, m];
             for (int i = 0; i < n; i++)
                 for (int j = 0; j < m; j++)
@@ -81,7 +83,7 @@ namespace GraphicEngineV2
 
             int n = Rows();
             if (n == 1)
-                return Data[0, 0];
+                return RoundedFloat.RoundFloat(Data[0, 0]);
             else
             {
                 float det = 0;
@@ -106,7 +108,7 @@ namespace GraphicEngineV2
 
                     det += sign * Data[0, k] * new Matrix(submatrix).Determinant();
                 }
-                return det;
+                return RoundedFloat.RoundFloat(det);
             }
         }
 
@@ -142,6 +144,7 @@ namespace GraphicEngineV2
                     identity.Data[i, j] /= div;
                 }
             }
+            identity.Data = RoundedFloat.RoundedMatrix(identity.Data);
             return identity;
         }
 
@@ -175,8 +178,12 @@ namespace GraphicEngineV2
 
             for (int i = 0; i < matrix1.Rows(); i++)
                 for (int j = 0; j < matrix2.Cols(); j++)
+                {
                     for (int k = 0; k < matrix2.Rows(); k++)
                         result.Data[i, j] += matrix1.Data[i, k] * matrix2.Data[k, j];
+
+                    result.Data[i, j] = RoundedFloat.RoundFloat(result.Data[i, j]);
+                }
 
             return result;
         }
@@ -186,7 +193,11 @@ namespace GraphicEngineV2
             for (int i = 0; i < matrix.Rows(); i++)
             {
                 for (int j = 0; j < matrix.Cols(); j++)
+                {
                     matrix.Data[i, j] *= scalar;
+                    matrix.Data[i, j] = RoundedFloat.RoundFloat(matrix.Data[i, j]);
+                }
+                
             }
             return matrix;
         }
@@ -201,13 +212,13 @@ namespace GraphicEngineV2
 
             for (int i = 0; i < matrix1.Rows(); i++)
                 for (int j = 0; j < matrix2.Cols(); j++)
-                    result.Data[i, j] = matrix1.Data[i, j] + matrix2.Data[i, j];
+                    result.Data[i, j] = RoundedFloat.RoundFloat(matrix1.Data[i, j] + matrix2.Data[i, j]);
             return result;
         }
 
         public static Matrix Sub(Matrix matrix1, Matrix matrix2)
         {
-            return matrix1 + ((-1) * matrix2);
+            return Add(matrix1, MatrixScalarMuliplication(-1, matrix2));
         }
 
 
@@ -261,7 +272,7 @@ namespace GraphicEngineV2
         }
         private static float ConvertToRadian(float angle)
         {
-            return angle * (float)Math.PI / 180.0f;
+            return angle * RoundedFloat.PI() / 180.0f;
         }
         public static Matrix GetRotateMatrix(int[]axesIndecies,float angle, int size)
         {
@@ -269,14 +280,14 @@ namespace GraphicEngineV2
             Matrix rotationMatrix = Identity(size);
             int n = (axesIndecies[1] + axesIndecies[0]) % 2 == 0 ? 1 : 0;
 
-            float cos = (float)Math.Cos(angle);
-            float sin = (float)Math.Sin(angle);
+            float cos = RoundedFloat.RoundFloat((float)Math.Cos(angle));
+            float sin = RoundedFloat.RoundFloat((float)Math.Sin(angle));
 
-            if (angle == ((float)Math.PI / 2) || angle == (3 * (float)Math.PI / 2))
+            if (angle == (RoundedFloat.PI() / 2) || angle == (3 * RoundedFloat.PI() / 2))
             {
                 cos = 0.0f;
             }
-            if (angle == (float)Math.PI || angle == 0.0f)
+            if (angle == RoundedFloat.PI() || angle == 0.0f)
             {
                 sin = 0.0f;
             }
@@ -331,7 +342,7 @@ namespace GraphicEngineV2
             for (int i = 0; i < mat1.Rows(); i++)
                 for (int j = 0; j < mat2.Cols(); j++)
                 {
-                    if (Math.Abs(mat1.Data[i, j] - mat2.Data[i, j]) > 0.00001)
+                    if (mat1.Data[i, j] != mat2.Data[i, j])
                         return false;
                 }
             return true;

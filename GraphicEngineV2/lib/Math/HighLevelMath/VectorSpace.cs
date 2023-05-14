@@ -29,7 +29,7 @@ namespace GraphicEngineV2
         {
             vec1 = Vector.Transpose(Vector.ToNotTransposeVector(vec1));
             vec2 = Vector.ToNotTransposeVector(vec2);
-            return (Vector.ToMatrix(vec1) * Matrix.Gram(Basis) * Vector.ToMatrix(vec2)).Data[0, 0];
+            return RoundedFloat.RoundFloat((Vector.ToMatrix(vec1) * Matrix.Gram(Basis) * Vector.ToMatrix(vec2)).Data[0, 0]);
         }
 
         public Vector VectorProduct(Vector vec1, Vector vec2)
@@ -37,8 +37,10 @@ namespace GraphicEngineV2
             if (Basis.Length != 3)
                 VectorSpaceException.BadBasisSize();
             Vector result = new Vector(new float[3, 1]);
+            Vector vecProd = Vector.VectorProduct(vec1, vec2);
             for (int i = 0; i < 3; i++)
-                result += Basis[i] * Vector.VectorProduct(vec1, vec2)[i];
+                result += Basis[i] * vecProd[i];
+            result.SetData(RoundedFloat.RoundedMatrix(result.Data));
             return result;
         }
         public Vector AsVector(Point point)
@@ -50,7 +52,7 @@ namespace GraphicEngineV2
                 for (int j = 0; j < point.PointSize(); j++)
                     for (int i = 0; i < point.PointSize(); i++)
                     {
-                        vec.Data[j, 0] += point.point[i] * Basis[j].Data[i, 0];
+                        vec.Data[j, 0] += point.Data[i] * Basis[j].Data[i, 0];
                     }
             }
             return vec;

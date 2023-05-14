@@ -12,17 +12,7 @@ namespace GraphicEngineV2
     {
         static void Main(string[] args)
         {
-            IEnumerable<long> UnickGenerator(int seed)
-            {
-                long value = seed;
-                do yield return (value = (value >> 1) ^ (-(value & 1u) & 0xD0000001u));
-                while (value != seed);
-            }
-            float[,] v = { { 1 }, { 2 }, { 3 } };
-            Vector A = new Vector(v);
-            Vector B = new Vector(3);
-            B.SetData(v);
-            B.Print();
+           
         }
         
    

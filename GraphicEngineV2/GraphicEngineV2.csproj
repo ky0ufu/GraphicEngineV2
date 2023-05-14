@@ -43,31 +43,35 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Algebra\RoundedFloat.cs" />
-    <Compile Include="CoordinateSystem.cs" />
-    <Compile Include="Engine\EntitiesList.cs" />
-    <Compile Include="Engine\Entity.cs" />
-    <Compile Include="Engine\Game.cs" />
-    <Compile Include="Engine\Identifier.cs" />
-    <Compile Include="Engine\Ray.cs" />
-    <Compile Include="Exeptions\EngineException.cs" />
-    <Compile Include="Exeptions\MatrixException.cs" />
-    <Compile Include="Algebra\Matrix.cs" />
-    <Compile Include="Algebra\Point.cs" />
-    <Compile Include="Exeptions\PointException.cs" />
+    <Compile Include="lib\Math\LowLevelMath\RoundedFloat.cs" />
+    <Compile Include="lib\Math\HighLevelMath\CoordinateSystem.cs" />
+    <Compile Include="lib\Engine\BasicClasses\EntitiesList.cs" />
+    <Compile Include="lib\Engine\BasicClasses\Entity.cs" />
+    <Compile Include="lib\Engine\BasicClasses\Game.cs" />
+    <Compile Include="lib\Engine\BasicClasses\Identifier.cs" />
+    <Compile Include="lib\Engine\BasicClasses\Ray.cs" />
+    <Compile Include="lib\Exeptions\EngineExceptions\EngineException.cs" />
+    <Compile Include="lib\Exeptions\MathExceptions\MatrixException.cs" />
+    <Compile Include="lib\Math\LowLevelMath\Matrix.cs" />
+    <Compile Include="lib\Math\LowLevelMath\Point.cs" />
+    <Compile Include="lib\Exeptions\MathExceptions\PointException.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Algebra\Vector.cs" />
-    <Compile Include="Exeptions\VectorException.cs" />
-    <Compile Include="VectorSpace.cs" />
-    <Compile Include="Exeptions\VectorSpaceException.cs" />
+    <Compile Include="lib\Math\LowLevelMath\Vector.cs" />
+    <Compile Include="lib\Exeptions\MathExceptions\VectorException.cs" />
+    <Compile Include="lib\Math\HighLevelMath\VectorSpace.cs" />
+    <Compile Include="lib\Exeptions\MathExceptions\VectorSpaceException.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ChangeLog.txt" />
-    <Content Include="NewChanges.txt" />
+    <Content Include="info\ChangeLog.txt" />
+    <Content Include="info\NewChanges.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="lib\Engine\Visualization\" />
+    <Folder Include="src\Game\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,10 +1,6 @@
 ﻿using GraphicEngineV2;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 
 namespace Engine
 {
@@ -63,36 +59,23 @@ namespace Engine
 
         public class Object : GameEntity
         {
-            public Point Position { get; set; }
 
-            public Vector Direction
-            {
-                get
-                {
-                    return Direction;
-                }
-                set
-                {
-                    Direction = value.Normalize();
-                }
-            }
             protected Object(Point position): base()
             {
-                Position = position;
+                SetProperty("position", position);
                 float[,] vec = new float[,] { { 1 }, { 0 }, { 0 } };
-                Direction = new Vector(vec);
+                SetProperty("direction",new Vector(vec));
             }
 
             public Object(Point position, Vector direction) : this(position)
             {
-                Direction = direction.Normalize();
+                SetProperty("direction", direction);
             }
 
             public void Move(Vector direction)
             {
 
             }
-
             public void PlanarRotate(int[] inds, float angle)
             {
                 if (inds.Length != 2)
@@ -104,41 +87,33 @@ namespace Engine
                 
             }
         }
-
         public class Camera : Object
         {
-            public float Fov { get; set; }
-            
-            public float Vfov { get; set; }
-
-            public float DrawDistance { get; set; }
-
-            public Point LookAt { get; set; }
-
             public Camera(Point position, Vector direction, float drawDistance, float fov) : base(position, direction)
             {
-                Fov = fov;
-                Vfov = 3 * fov / 2;
-                DrawDistance = drawDistance;
+                SetProperty("fov", fov);
+                SetProperty("vfov", 16f / 9 * fov);
+                SetProperty("drawDistance", drawDistance);
             }
 
             public Camera(Point position, Vector direction, float drawDistance, float fov, float vfov) : 
                 this(position, direction, drawDistance, fov)  
             {
-                Vfov = vfov;
+                SetProperty("vfov", vfov);
             }
 
             public Camera(Point position, Point lookAt, float fov, float drawDistance) : base(position)
             {
-                LookAt = lookAt;
-                Fov = fov;
-                DrawDistance = drawDistance;
+                SetProperty("LookAt", lookAt);
+                SetProperty("fov", fov);
+                SetProperty("vfov", 16f / 9 * fov);
+                SetProperty("drawDistance", drawDistance);
             }
 
             public Camera(Point position, Point lookAt, float fov, float vfov, float drawDistance) : 
                 this(position, lookAt, fov, drawDistance)
             {
-                Vfov = vfov;
+                SetProperty("vfov", vfov);
             }
         }
     }
