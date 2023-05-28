@@ -300,19 +300,19 @@ namespace GraphicEngineV2
 
             return rotationMatrix;
         }
-        private static Matrix Rx(float angle)
+        public static Matrix RotateYZ(float angle)
         {
             angle = ConvertToRadian(angle);
             int[] RxAxis = { 1, 2 };
             return GetRotateMatrix(RxAxis, angle, 3);
         }
-        private static Matrix Ry(float angle)
+        public static Matrix RotateXZ(float angle)
         {
             angle = ConvertToRadian(angle);
             int[] RyAxis = { 0, 2 };
             return GetRotateMatrix(RyAxis, angle, 3);
         }
-         private static Matrix Rz(float angle)
+         public static Matrix RotateXY(float angle)
         {
             angle = ConvertToRadian(angle);
             int[] RzAxis = { 0, 1 };
@@ -320,7 +320,10 @@ namespace GraphicEngineV2
         }
         public static Matrix GetTeitBryanMatrix(float alpha, float betta, float gamma)
         {
-            return Rx(alpha) * Ry(betta) * Rz(gamma);
+            if (betta == RoundedFloat.RoundFloat((float)(Math.PI / 2)) || gamma == RoundedFloat.RoundFloat((float)(Math.PI / 2)))
+                throw new Exception();
+
+            return RotateXZ(gamma) * RotateYZ(betta) * RotateXY(alpha);
 
         }
 

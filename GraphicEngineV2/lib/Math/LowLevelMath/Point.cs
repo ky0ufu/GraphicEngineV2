@@ -69,5 +69,17 @@ namespace GraphicEngineV2
 
             return true;
         }
-    }
+
+        public float this[int index]
+        {
+            get
+            {
+                return Data[index];
+            }
+            set
+            {
+                float data = value;
+                Data[index] = RoundedFloat.RoundFloat(data);
+            }
+        }
 }

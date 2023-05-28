@@ -70,6 +70,8 @@
     <Content Include="info\NewChanges.txt" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="assets\" />
+    <Folder Include="config\" />
     <Folder Include="lib\Engine\Visualization\" />
     <Folder Include="src\Game\" />
   </ItemGroup>

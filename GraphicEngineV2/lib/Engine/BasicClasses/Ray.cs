@@ -36,5 +36,10 @@ namespace Engine
             InitialPoint = initialPoint;
             Direction = direction;
         }
+
+        public void Normalize()
+        {
+            Direction = Direction.Normalize();
+        }
     }
 }

@@ -180,7 +180,7 @@ namespace GraphicEngineV2
             return ToMatrix(vec1) * ToMatrix(vec2);
         }
 
-        public static Vector VectorByMatrix(Vector vec, Matrix mat)
+        public static Vector MatrixByVector(Matrix mat, Vector vec)
         {
             if (vec.IsTranspose)
                 VectorException.FormException();
@@ -188,9 +188,26 @@ namespace GraphicEngineV2
             return ToVector(MatrixMultiplication(mat,ToMatrix(vec)));
         }
 
+        public static Vector GetVectorFromPoints(Point ptrStart, Point ptrEnd)
+        {
+            if (ptrStart.PointSize() != ptrStart.PointSize())
+                PointException.BadSizes();
+
+            Vector result = new Vector(ptrStart.PointSize());
+
+            for (int i = 0; i < ptrStart.PointSize(); i++)
+                result[i] = ptrEnd[i] - ptrStart[i];
+            return result;
+        }
+
+        public static Vector RotateVector(Matrix rotateMatrix, Vector vec)
+        {
+            return MatrixByVector(rotateMatrix, vec);
+        }
+
         public static Vector operator * (Matrix mat, Vector vec)
         {
-            return VectorByMatrix(vec, mat);
+            return MatrixByVector(mat, vec);
         }
         public static Vector operator ^(Vector vec1, Vector vec2)
         {

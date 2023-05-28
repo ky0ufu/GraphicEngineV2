@@ -27,16 +27,19 @@ namespace Engine
                 throw new Exception();
 
             if (!properties.ContainsKey(prop))
+            {
                 properties.Add(prop, value);
+                properties["properties"].Add(prop);
+            }
             else
+            {
                 properties[prop] = value;
-
-            properties["properties"].Add(prop);
+            }
         }
 
         public dynamic GetProperty(string prop = null) 
         {
-            return properties["properties"].ContainsKey(prop) ? properties[prop] : null;
+            return properties.ContainsKey(prop) ? properties[prop] : null;
         }
 
         public void RemoveProperty(string prop) 
