@@ -43,6 +43,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="lib\Engine\BasicClasses\GameObjects\Camera.cs" />
+    <Compile Include="lib\Engine\BasicClasses\GameObjects\Object.cs" />
+    <Compile Include="lib\Engine\BasicClasses\GameObjects\HyperEllipsoid.cs" />
+    <Compile Include="lib\Engine\BasicClasses\GameObjects\HyperPlane.cs" />
     <Compile Include="lib\Math\LowLevelMath\RoundedFloat.cs" />
     <Compile Include="lib\Math\HighLevelMath\CoordinateSystem.cs" />
     <Compile Include="lib\Engine\BasicClasses\EntitiesList.cs" />

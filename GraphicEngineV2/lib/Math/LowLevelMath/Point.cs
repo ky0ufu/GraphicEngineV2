@@ -55,7 +55,7 @@ namespace GraphicEngineV2
 
         static public bool operator !=(Point ptr1, Point ptr2)
         {
-           return !AreEqual(ptr1, ptr2);
+            return !AreEqual(ptr1, ptr2);
         }
 
         static public bool AreEqual(Point ptr1, Point ptr2)
@@ -82,4 +82,5 @@ namespace GraphicEngineV2
                 Data[index] = RoundedFloat.RoundFloat(data);
             }
         }
+    }
 }

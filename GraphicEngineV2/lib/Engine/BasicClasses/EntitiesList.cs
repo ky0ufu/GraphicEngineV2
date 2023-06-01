@@ -5,7 +5,7 @@ namespace Engine
 {
     public class EntitiesList
     {
-        public List<Entity> Entities { get; }
+        public List<Entity> Entities { get; set; }
 
         public EntitiesList(List<Entity> entities) 
         {

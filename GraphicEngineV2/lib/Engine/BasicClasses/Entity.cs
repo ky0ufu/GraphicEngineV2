@@ -8,14 +8,14 @@ namespace Engine
     public class Entity
     {
         public CoordinateSystem CoordSystem { get; set; }
-        public virtual Identifier Id { get; }
+        public Identifier Id { get; }
         public Dictionary<string, dynamic> properties = new Dictionary<string, dynamic>();
 
         public Entity(CoordinateSystem cS) : this()
         {
             CoordSystem = cS;
         }
-        protected Entity()
+        public Entity()
         {
             Id = new Identifier();
             properties.Add("properties", new HashSet<dynamic>());
@@ -49,6 +49,11 @@ namespace Engine
 
             properties.Remove(prop);
             properties["properties"].Remove(prop);
+        }
+
+        public virtual float IntersectionDistance(Ray ray)
+        {
+            return float.PositiveInfinity;
         }
 
         public dynamic this[string prop]
