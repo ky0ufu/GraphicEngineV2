@@ -8,6 +8,11 @@ namespace Engine
 
         public HyperEllipsoid(Point position,Game game, Vector direction, float[] semiAxes) : base(position, game)
         {
+            foreach (var axis in semiAxes) 
+            {
+                if (axis == 0.0f)
+                    throw new ArgumentException("bad axis");
+            }
             direction = direction.Normalize();
             SetProperty("direction", direction);
             SetProperty("semiAxes", semiAxes);
@@ -85,23 +90,13 @@ namespace Engine
             if (Dis < 0)
                 return null;
 
-            if (Dis == 0)
-            {
-                float ans = (-b + (float)Math.Sqrt(Dis)) / (2 * a);
+            float ans1 = (-b + (float)Math.Sqrt(Dis)) / (2 * a);
+            float ans2 = (-b - (float)Math.Sqrt(Dis)) / (2 * a);
 
-                result[0] = ans;
-                result[1] = ans;
-                return result;
-            }
-            else
-            {
-                float ans1 = (-b + (float)Math.Sqrt(Dis)) / (2 * a);
-                float ans2 = (-b - (float)Math.Sqrt(Dis)) / (2 * a);
+            result[0] = ans1;
+            result[1] = ans2;
+            return result;
 
-                result[0] = ans1;
-                result[1] = ans2;
-                return result;
-            }
         }
     }
 }

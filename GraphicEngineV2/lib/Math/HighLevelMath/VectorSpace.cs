@@ -12,8 +12,6 @@ namespace GraphicEngineV2
 
         public VectorSpace(Vector[] basis)
         {
-            if (basis == null)
-                VectorSpaceException.InitError();
             int size = basis.Length;
             for (int i = 0; i < basis.Length; i++)
             {

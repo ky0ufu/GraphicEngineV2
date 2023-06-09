@@ -54,6 +54,7 @@ namespace Engine
             SetProperty("vfov", vfov);
         }
 
+
         public Ray[,] GetRaysMatrix(int n, int m)
         {
             float deltaAlpha = RoundedFloat.RoundFloat(GetProperty("fov") / n);

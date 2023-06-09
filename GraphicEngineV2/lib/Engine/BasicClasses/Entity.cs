@@ -15,7 +15,7 @@ namespace Engine
         {
             CoordSystem = cS;
         }
-        public Entity()
+        protected Entity()
         {
             Id = new Identifier();
             properties.Add("properties", new HashSet<dynamic>());

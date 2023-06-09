@@ -44,9 +44,13 @@ namespace Engine
             }
         }
         public delegate void EntityDelegate(Entity entity);
-        public void exec(EntityDelegate operation, Entity entity)
+
+        public void exec(EntityDelegate operation)
         {
-            operation(entity);
+            foreach(var entity in Entities)
+            {
+                operation(entity);
+            }
         }
     }
 }

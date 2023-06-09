@@ -17,8 +17,6 @@ namespace GraphicEngineV2
 
         public Point(float[] point)
         {
-            if (point == null)
-                PointException.InitError();
             this.Data = RoundedFloat.RoundArray(point);
         }
         public int PointSize()
@@ -81,6 +79,14 @@ namespace GraphicEngineV2
                 float data = value;
                 Data[index] = RoundedFloat.RoundFloat(data);
             }
+        }
+        public static Vector toVector(Point ptr)
+        {
+            float[,] data = new float[ptr.PointSize(),1];
+            for (int i = 0; i < ptr.PointSize(); i++)
+                data[i,1] = ptr.Data[i];
+
+            return new Vector(data);
         }
     }
 }

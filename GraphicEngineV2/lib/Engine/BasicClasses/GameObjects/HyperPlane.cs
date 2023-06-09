@@ -17,7 +17,6 @@ namespace Engine
                 throw new Exception();
 
             Vector normal = GetProperty("normal");
-            RemoveProperty("normal");
 
             Matrix rotateMatrix = Matrix.GetRotateMatrix(inds, angle, normal.VectorSize());
 
@@ -29,7 +28,6 @@ namespace Engine
         public override void Rotate3D(float alpha, float betta, float gamma)
         {
             Vector normal = GetProperty("normal");
-            RemoveProperty("normal");
 
             normal = Matrix.GetTeitBryanMatrix(alpha, betta, gamma) * normal;
             SetProperty("normal", normal);
@@ -38,20 +36,25 @@ namespace Engine
         public override float IntersectionDistance(Ray ray)
         {
 
-            Point pos = GetProperty("position");
-            Vector normal = GetProperty("normal");
+            Vector posPlane = Point.toVector(GetProperty("position"));
+            Vector normalPlane = GetProperty("normal");
 
-            float d = 0f;
-            float result = 0f;
+            Vector rayStart = Point.toVector(ray.InitialPoint);
+            Vector rayDir = ray.Direction;
+;
+            float scalarWithPoints = Vector.ScalarProduct(normalPlane, rayStart - posPlane);
+            float scalarWithDir = Vector.ScalarProduct(normalPlane, rayDir);
 
-            for (int i = 0; i < pos.PointSize(); i++)
-            {
-                d += -(pos[i] * normal[i]);
-                result += normal[i] * ray.InitialPoint[i];
-            }
+            if (scalarWithPoints == 0)
+                return 0f;
+            if (scalarWithDir == 0)
+                return float.PositiveInfinity;
 
-            result = (Math.Abs(result + d)) / normal.VectorLength();
-            return RoundedFloat.RoundFloat(result);
+            float scalarCoef = scalarWithDir / scalarWithPoints;
+
+            Vector endPoint = rayStart + (scalarCoef * ray.Direction);
+
+            return (endPoint - rayStart).VectorLength();            
         }
     }
 }

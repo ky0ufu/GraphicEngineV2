@@ -13,8 +13,6 @@ namespace GraphicEngineV2
 
         public CoordinateSystem(Point initialPoint, VectorSpace basis)
         {
-            if (initialPoint == null || basis == null)
-                throw new EngineException("null");
             InitialPoint = initialPoint;
             Basis = basis;
         }

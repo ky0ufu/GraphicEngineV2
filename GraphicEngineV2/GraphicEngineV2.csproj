@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="lib\Engine\BasicClasses\EventSystem.cs" />
     <Compile Include="lib\Engine\BasicClasses\GameObjects\Camera.cs" />
     <Compile Include="lib\Engine\BasicClasses\GameObjects\Object.cs" />
     <Compile Include="lib\Engine\BasicClasses\GameObjects\HyperEllipsoid.cs" />
