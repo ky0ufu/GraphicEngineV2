@@ -6,20 +6,20 @@ using System.Threading.Tasks;
 
 namespace Engine
 {
-    public class Configuration
+    public class EngineConfiguration
     {
 
         private string filePath;
 
         private Dictionary<string, dynamic> configuration;
 
-        public Configuration() 
+        public EngineConfiguration() 
         {
             configuration = new Dictionary<string, dynamic>();
         }
 
 
-        public Configuration(string filePath)
+        public EngineConfiguration(string filePath)
         {
             this.filePath = filePath;
         }

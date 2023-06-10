@@ -34,7 +34,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Management" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -43,11 +46,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="config\Default.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-      <DependentUpon>Default.settings</DependentUpon>
-    </Compile>
     <Compile Include="lib\Engine\BasicClasses\EngineConfiguration.cs" />
     <Compile Include="lib\Engine\BasicClasses\EventSystem.cs" />
     <Compile Include="lib\Engine\BasicClasses\GameObjects\Camera.cs" />
@@ -75,10 +73,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="config\Default.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Default.Designer.cs</LastGenOutput>
-    </None>
+    <None Include="config\Default.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="info\ChangeLog.txt" />
