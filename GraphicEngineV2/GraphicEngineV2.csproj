@@ -74,6 +74,7 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="config\Default.config" />
+    <None Include="config\New.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="info\ChangeLog.txt" />

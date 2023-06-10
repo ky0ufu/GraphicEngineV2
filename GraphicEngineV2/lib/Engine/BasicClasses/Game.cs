@@ -8,14 +8,14 @@ namespace Engine
     {
         public CoordinateSystem CS { get; set; }
         public EntitiesList Entities { get; set; }
+        public EventSystem Events { get; set; }
+        public static EngineConfiguration config = new EngineConfiguration();
 
-        public Game(CoordinateSystem cS, EntitiesList entities)
+        public Game(CoordinateSystem cS, EntitiesList entities, EventSystem eventSystem)
         {
-            if (cS != null || entities != null)
-                throw new Exception();
-
             CS = cS;
             Entities = entities;
+            Events = eventSystem;
         }
 
         public void Run()

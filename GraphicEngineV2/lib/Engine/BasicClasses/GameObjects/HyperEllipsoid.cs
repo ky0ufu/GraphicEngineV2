@@ -55,12 +55,13 @@ namespace Engine
             float b = 0f;
             float c = 0f;
 
-            float freeCoef = 0f;
+            float freeCoef = 1f;
             float[] result = new float[2];
 
             Point startRay = ray.InitialPoint;
             Vector rayDir = ray.Direction;
             float[] semiAxes = GetProperty("semiAxes");
+            Point pos = GetProperty("position");
 
             int dimms = startRay.PointSize();
 
@@ -69,7 +70,7 @@ namespace Engine
 
             for (int i = 0; i < dimms; i++)
             {
-                float coef = 0f;
+                float coef = 1f;
                 for (int j = 0; j < dimms; j++)
                 {
                     if (i == j)
@@ -77,8 +78,8 @@ namespace Engine
                     coef *= semiAxes[j] * semiAxes[j];
                 }
                 a += coef * rayDir[i] * rayDir[i];
-                b += coef * startRay[i];
-                c += coef * startRay[i] * startRay[i];
+                b += coef * (startRay[i] - pos[i]);
+                c += coef * (startRay[i] - pos[i]) * (startRay[i] - pos[i]);
 
                 freeCoef *= semiAxes[i] * semiAxes[i];
             }

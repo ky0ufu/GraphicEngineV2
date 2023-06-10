@@ -1,11 +1,12 @@
-﻿using System;
+﻿using Engine;
+using System;
 using System.Runtime.CompilerServices;
 
 namespace GraphicEngineV2
 {
     public class RoundedFloat
     {
-        private static int precision = 3;
+        private static int precision = Game.config["precision"];
 
         public static void SetPrecision(int val)
         {
