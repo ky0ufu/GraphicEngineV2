@@ -10,10 +10,11 @@ namespace Engine
 {
     public class EventSystem
     {
-        public delegate dynamic EventDelegate(params dynamic[] args);
+        public delegate void EventDelegate(params dynamic[] args);
+        public delegate void MoveDelegate(ref Camera camera, ref Game.Canvas canvas);
 
 
-        public Dictionary<string, List<EventDelegate>> events = new Dictionary<string, List<EventDelegate>>();
+        public Dictionary<string, List<dynamic>> events = new Dictionary<string, List<dynamic>>();
 
         public EventSystem()
         {
@@ -24,7 +25,7 @@ namespace Engine
         {
             if(!events.ContainsKey(eventName))
             {
-                events[eventName] = new List<EventDelegate>();
+                events[eventName] = new List<dynamic>();
             }
         }
 
@@ -35,7 +36,7 @@ namespace Engine
                 events.Remove(eventName);
             }
         }
-        public void Handle(string eventName, EventDelegate function) 
+        public void Handle(string eventName, dynamic function) 
         {
             Add(eventName);
 
@@ -52,7 +53,7 @@ namespace Engine
             }
         }
 
-        public List<EventDelegate> GetHandled(string eventName) 
+        public List<dynamic> GetHandled(string eventName) 
         {
             if (events.ContainsKey(eventName))
             {
@@ -61,7 +62,7 @@ namespace Engine
             throw new Exception();
         }
 
-        public List<EventDelegate> this[string eventName]
+        public List<dynamic> this[string eventName]
         {
             get { return GetHandled(eventName); }
         }

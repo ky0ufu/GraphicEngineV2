@@ -270,13 +270,8 @@ namespace GraphicEngineV2
                 Console.WriteLine();
             }
         }
-        private static float ConvertToRadian(float angle)
-        {
-            return angle * RoundedFloat.PI() / 180.0f;
-        }
         public static Matrix GetRotateMatrix(int[]axesIndecies,float angle, int size)
         {
-            angle = ConvertToRadian(angle);
             Matrix rotationMatrix = Identity(size);
             int n = (axesIndecies[1] + axesIndecies[0]) % 2 == 0 ? 1 : 0;
 
@@ -302,19 +297,18 @@ namespace GraphicEngineV2
         }
         public static Matrix RotateYZ(float angle)
         {
-            angle = ConvertToRadian(angle);
+
             int[] RxAxis = { 1, 2 };
             return GetRotateMatrix(RxAxis, angle, 3);
         }
         public static Matrix RotateXZ(float angle)
         {
-            angle = ConvertToRadian(angle);
+
             int[] RyAxis = { 0, 2 };
             return GetRotateMatrix(RyAxis, angle, 3);
         }
          public static Matrix RotateXY(float angle)
         {
-            angle = ConvertToRadian(angle);
             int[] RzAxis = { 0, 1 };
             return GetRotateMatrix(RzAxis, angle, 3);
         }

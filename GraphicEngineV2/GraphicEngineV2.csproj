@@ -33,6 +33,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CursesSharp, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\CursesSharp.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Configuration.Install" />
@@ -52,6 +56,7 @@
     <Compile Include="lib\Engine\BasicClasses\GameObjects\Object.cs" />
     <Compile Include="lib\Engine\BasicClasses\GameObjects\HyperEllipsoid.cs" />
     <Compile Include="lib\Engine\BasicClasses\GameObjects\HyperPlane.cs" />
+    <Compile Include="lib\Engine\Visualization\GameConsole.cs" />
     <Compile Include="lib\Math\LowLevelMath\RoundedFloat.cs" />
     <Compile Include="lib\Math\HighLevelMath\CoordinateSystem.cs" />
     <Compile Include="lib\Engine\BasicClasses\EntitiesList.cs" />
@@ -82,7 +87,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\" />
-    <Folder Include="lib\Engine\Visualization\" />
     <Folder Include="src\Game\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

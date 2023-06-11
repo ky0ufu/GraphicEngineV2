@@ -83,10 +83,11 @@ namespace GraphicEngineV2
         public static Vector toVector(Point ptr)
         {
             float[,] data = new float[ptr.PointSize(),1];
+            Vector toVec = new Vector(ptr.PointSize());
             for (int i = 0; i < ptr.PointSize(); i++)
-                data[i,1] = ptr.Data[i];
+                toVec[i] = ptr[i];
 
-            return new Vector(data);
+            return toVec;
         }
     }
 }

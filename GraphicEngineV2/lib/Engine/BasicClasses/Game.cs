@@ -1,6 +1,7 @@
 ﻿using GraphicEngineV2;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Engine
 {
@@ -77,25 +78,46 @@ namespace Engine
 
         public class Canvas
         {
-            private int n;
-            private int m;          
-            private Matrix distances;
-            private Game game;
+            protected int n;
+            protected int m;          
+            public Matrix distances;
+            protected Game game;
+            protected Camera camera;
+            protected char[] charmap = ".:;><+r*zsvfwqkP694VOGbUAKXH8RD#$B0MNWQ%&@".ToCharArray();
 
-            public Canvas(int n, int m, Game game) 
+            public Canvas(int n, int m, Game game, Camera camera) 
             {
-                this.n = n;
-                this.m = m;
                 distances = new Matrix(n, m);
                 this.game = game;
+                this.camera = camera;
+
+                this.n = n;
+                this.m = m;
             }
 
-            public void Draw()
+            public virtual void Draw()              
             {
+                Console.Clear();
+                float deltaDist = camera.GetProperty("drawDistance") / charmap.Length;
+                for (int i = 0; i < n; i++) 
+                {
+                    for (int j = 0; j < m; j++)
+                    {
+                        if (distances[i, j] > camera.GetProperty("drawDistance") || distances[i, j] == float.PositiveInfinity)
+                            System.Console.Write(' ');
+                        else
+                        {
+                            char outChar = charmap[charmap.Length - 1 - (int)(distances[i,j] / deltaDist)];
+                            System.Console.Write(outChar);
+                        }
+                        
+                    }
+                    System.Console.WriteLine();
 
-
+                }
+                System.Console.SetCursorPosition(n / 2, m / 2);
             }
-            public void Update(Camera camera)
+            public virtual void Update()
             {
                 Ray[,] rayMatrix = camera.GetRaysMatrix(n, m);
                 for (int i = 0; i < n; i++) 

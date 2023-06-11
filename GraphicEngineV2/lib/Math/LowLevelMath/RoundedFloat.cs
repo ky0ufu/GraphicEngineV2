@@ -6,7 +6,7 @@ namespace GraphicEngineV2
 {
     public class RoundedFloat
     {
-        private static int precision = Game.config["precision"];
+        private static int precision = int.Parse(Game.config["precision"]);
 
         public static void SetPrecision(int val)
         {

@@ -43,6 +43,10 @@ namespace Engine
             SetProperty("fov", fov);
             SetProperty("vfov", vfov);
             SetProperty("drawDistance", drawDistance);
+
+            Vector direction = Vector.GetVectorFromPoints(GetProperty("position"), GetProperty("lookAt"));
+            direction = direction.Normalize();
+            SetProperty("direction", direction);
         }
 
         public Camera(Point position, Point lookAt, Game game, float drawDistance,  float fov, float vfov) :
@@ -65,15 +69,7 @@ namespace Engine
 
             float zeroAngleY = RoundedFloat.RoundFloat(GetProperty("vfov") / 2);
 
-            Vector direction;
-
-            if (GetProperty("direction") == null)
-            {
-                direction = Vector.GetVectorFromPoints(GetProperty("position"), GetProperty("lookAt"));
-                direction = direction.Normalize();
-            }
-            else
-                direction = GetProperty("direction");
+            Vector direction = GetProperty("direction");
 
             Ray[,] RayMatrix = new Ray[n, m];
 
