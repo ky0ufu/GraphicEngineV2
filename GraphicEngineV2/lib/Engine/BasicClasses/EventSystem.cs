@@ -42,15 +42,9 @@ namespace Engine
 
             events[eventName].Add(function);
         }
-        public void Trigger(string eventName, params dynamic[] args)
+        public dynamic Trigger(string eventName)
         {
-            if(events.ContainsKey(eventName)) 
-            {
-                foreach(var evt in events[eventName])
-                {
-                    evt(args);
-                }
-            }
+            return events[eventName];
         }
 
         public List<dynamic> GetHandled(string eventName) 

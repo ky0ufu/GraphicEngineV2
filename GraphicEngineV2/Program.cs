@@ -47,12 +47,18 @@ namespace GraphicEngineV2
             Camera camera = g.CreateCamera(ptr, vec3, 40f, RoundedFloat.RoundFloat((float)(Math.PI/2)));
 
             Game.Canvas output = new Game.Canvas(100, 100, g, camera);
+            EventSystem.MoveDelegate moving = MoveSystem;
+
+            g.Events.Handle("move", moving);
 
 
             output.Update();
-            output.Draw();
+            //output.Draw();
             while (ConsoleKey.Escape != Console.ReadKey().Key)
-                MoveSystem(ref camera, ref output);            
+                foreach(var ev in g.Events.Trigger("move"))
+                {
+                    ev(ref camera, ref output);
+                }           
         }
         public static void MoveSystem(ref Camera camera, ref Game.Canvas output)
         {
@@ -82,7 +88,8 @@ namespace GraphicEngineV2
             }
             camera.SetDirection(direction);
             output.Update();
-            output.Draw();           
+            //output.Draw();
+            direction.Print();
         }
     }
 }  
